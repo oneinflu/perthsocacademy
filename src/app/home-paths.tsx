@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { cx } from "@/utils/cx";
+import { ShineButton } from "@/components/base/buttons/shine-button";
 
 const BentoTile = ({
     title,
@@ -27,6 +28,7 @@ const BentoTile = ({
 export const HomePaths = () => {
     const ref = useRef<HTMLElement | null>(null);
     const [seen, setSeen] = useState(false);
+    const [selected, setSelected] = useState<string | null>(null);
 
     useEffect(() => {
         const el = ref.current;
@@ -41,8 +43,14 @@ export const HomePaths = () => {
         return () => io.disconnect();
     }, []);
 
+    const mapToHref = (opt: string | null) => {
+        if (!opt) return undefined;
+        if (opt === "Corporate Team Lead") return "/academy";
+        return "/programs";
+    };
+
     return (
-        <section ref={ref} className="w-full overflow-hidden py-16 md:py-24">
+        <section ref={ref} id="find-my-path" className="w-full overflow-hidden py-16 md:py-24">
             <div className="mx-auto w-full max-w-container px-4 md:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
@@ -61,6 +69,83 @@ export const HomePaths = () => {
                     <p className="mx-auto mt-4 max-w-2xl text-lg text-white/75">
                         Different backgrounds require different starting points. SOC Academy provides guided paths based on readiness and experience.
                     </p>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={seen ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
+                    className="mx-auto mt-10 max-w-4xl"
+                >
+                    <div className="rounded-2xl bg-[#0B0D12]/80 p-6 ring-1 ring-white/10 backdrop-blur">
+                        <div className="text-center">
+                            <div className="text-md font-semibold text-white">Not sure where to start? Choose your current profile.</div>
+                            <p className="mt-2 text-sm text-white/70">We’ll recommend a learning path based on your background and your target outcome.</p>
+                        </div>
+                        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                            <button
+                                onClick={() => setSelected("Fresh Graduate")}
+                                className={cx(
+                                    "rounded-xl border border-white/12 bg-white/5 p-4 text-left transition hover:bg-white/8",
+                                    selected === "Fresh Graduate" && "ring-1 ring-brand-600 bg-white/8",
+                                )}
+                            >
+                                <div className="text-sm font-semibold text-white">Fresh Graduate</div>
+                                <div className="mt-1 text-xs text-white/70">Start with Fundamentals, then choose a role track</div>
+                            </button>
+                            <button
+                                onClick={() => setSelected("Developer / Coder")}
+                                className={cx(
+                                    "rounded-xl border border-white/12 bg-white/5 p-4 text-left transition hover:bg-white/8",
+                                    selected === "Developer / Coder" && "ring-1 ring-brand-600 bg-white/8",
+                                )}
+                            >
+                                <div className="text-sm font-semibold text-white">Developer / Coder</div>
+                                <div className="mt-1 text-xs text-white/70">Application Security / Secure Coding pathway</div>
+                            </button>
+                            <button
+                                onClick={() => setSelected("Tester / QA")}
+                                className={cx(
+                                    "rounded-xl border border-white/12 bg-white/5 p-4 text-left transition hover:bg-white/8",
+                                    selected === "Tester / QA" && "ring-1 ring-brand-600 bg-white/8",
+                                )}
+                            >
+                                <div className="text-sm font-semibold text-white">Tester / QA</div>
+                                <div className="mt-1 text-xs text-white/70">Security Testing & Vulnerability Validation pathway</div>
+                            </button>
+                            <button
+                                onClick={() => setSelected("System / Network Administrator")}
+                                className={cx(
+                                    "rounded-xl border border-white/12 bg-white/5 p-4 text-left transition hover:bg-white/8",
+                                    selected === "System / Network Administrator" && "ring-1 ring-brand-600 bg-white/8",
+                                )}
+                            >
+                                <div className="text-sm font-semibold text-white">System / Network Administrator</div>
+                                <div className="mt-1 text-xs text-white/70">Cloud & Platform Security pathway</div>
+                            </button>
+                            <button
+                                onClick={() => setSelected("Corporate Team Lead")}
+                                className={cx(
+                                    "rounded-xl border border-white/12 bg-white/5 p-4 text-left transition hover:bg-white/8 sm:col-span-2 md:col-span-1",
+                                    selected === "Corporate Team Lead" && "ring-1 ring-brand-600 bg-white/8",
+                                )}
+                            >
+                                <div className="text-sm font-semibold text-white">Corporate Team Lead</div>
+                                <div className="mt-1 text-xs text-white/70">Role-based team upskilling pathway</div>
+                            </button>
+                        </div>
+                        {selected && (
+                            <div className="mt-6 flex flex-col items-start justify-between gap-3 rounded-xl border border-white/12 bg-white/5 p-4 md:flex-row md:items-center">
+                                <div>
+                                    <div className="text-sm font-semibold text-white">Recommended pathway:</div>
+                                    <div className="mt-1 text-sm text-white/75">A structured sequence designed to build capability step-by-step.</div>
+                                </div>
+                                <ShineButton href={mapToHref(selected)} className="cursor-cta-trendy" color="secondary-destructive" size="lg">
+                                    View Path Details
+                                </ShineButton>
+                            </div>
+                        )}
+                    </div>
                 </motion.div>
 
                 <motion.div

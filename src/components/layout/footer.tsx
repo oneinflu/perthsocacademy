@@ -7,12 +7,7 @@ import { cx } from "@/utils/cx";
 
 export const Footer: FC<{ className?: string }> = ({ className }) => {
     const year = new Date().getFullYear();
-    const items = [
-        { label: "Terms and Conditions", href: "/terms" },
-        { label: "Privacy Policy", href: "/privacy" },
-        { label: "Careers", href: "/careers" },
-        { label: "Users Policy", href: "/users-policy" },
-    ];
+    const items: Array<{ label: string; href: string }> = [];
 
     return (
         <footer
@@ -27,17 +22,19 @@ export const Footer: FC<{ className?: string }> = ({ className }) => {
                     <UntitledLogo className="h-8" />
                 </div>
 
-                <nav className="hidden md:block">
-                    <ul className="flex items-center gap-6">
-                        {items.map((item) => (
-                            <li key={item.label}>
-                                <Button color="link-gray" size="lg" href={item.href}>
-                                    {item.label}
-                                </Button>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
+                {items.length > 0 && (
+                    <nav className="hidden md:block">
+                        <ul className="flex items-center gap-6">
+                            {items.map((item) => (
+                                <li key={item.label}>
+                                    <Button color="link-gray" size="lg" href={item.href}>
+                                        {item.label}
+                                    </Button>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                )}
 
                 <div className="ml-auto text-sm text-tertiary">{`© ${year} Perth SOC`}</div>
             </div>

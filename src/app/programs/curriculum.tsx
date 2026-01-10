@@ -98,7 +98,7 @@ export const Curriculum = () => {
     const progressPercent = Math.max(0, Math.min(100, Math.round(progress * 100)));
 
     return (
-        <section ref={ref} className="relative w-full bg-[#0A0D12] py-16 md:py-24">
+        <section ref={ref} id="curriculum" className="relative w-full bg-[#0A0D12] py-16 md:py-24">
             <div className="pointer-events-none absolute inset-0">
                 <div
                     className="absolute inset-0 opacity-90"

@@ -7,12 +7,11 @@ export type LayoutHeaderProps = ComponentProps<typeof MarketingHeader>;
 
 const defaultItems = [
     { label: "Home", href: "/" },
-    { label: "Academy", href: "/academy/" },
-    {
-        label: "Programs",
-        menu: <ProgramsMenu />,
-    },
-    { label: "Threat Landscape", href: "/threat/" },
+    { label: "Programs", href: "/programs" },
+    { label: "Courses", menu: <ProgramsMenu /> },
+    { label: "Role Tracks", href: "/programs/role-tracks" },
+    { label: "Corporate Training", href: "/programs/corporate-training" },
+    { label: "Contact", href: "/contact" },
 ];
 
 export const Header = ({ isFullWidth = false, items, className, ...props }: LayoutHeaderProps) => {

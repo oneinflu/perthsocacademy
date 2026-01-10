@@ -1,14 +1,18 @@
 "use client";
 import { ShineButton } from "@/components/base/buttons/shine-button";
+import { Button } from "@/components/base/buttons/button";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Stars02, FileCode01, BarChart02, ArrowRight } from "@untitledui/icons";
 import { Dialog, DialogTrigger, Modal, ModalOverlay } from "@/components/application/modals/modal";
 import { Input } from "@/components/base/input/input";
+import { TextArea } from "@/components/base/textarea/textarea";
 import { BackgroundPattern } from "@/components/shared-assets/background-patterns";
 
 export const CAASPHero = () => {
     const [scrollY, setScrollY] = useState(0);
+    const [enquiryInvalid, setEnquiryInvalid] = useState<Record<string, boolean>>({});
+    const [enquiryError, setEnquiryError] = useState<string | null>(null);
 
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY || 0);
@@ -119,50 +123,79 @@ export const CAASPHero = () => {
                 </div>
             </div>
             <div className="mt-8 flex w-full items-center justify-center">
-                <DialogTrigger>
-                    <ShineButton className="cursor-cta-trendy" color="secondary-destructive" size="xl" iconTrailing={ArrowRight}>
-                        Enroll Now
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                    <ShineButton className="cursor-cta-trendy" color="secondary-destructive" size="xl" iconTrailing={ArrowRight} href="#curriculum">
+                        View Curriculum
                     </ShineButton>
-                    <ModalOverlay className="!items-center !justify-center">
-                        {({ state }) => (
-                            <Modal className="w-full flex items-center justify-center cursor-auto will-change-transform">
-                                <Dialog className="w-[min(90vw,28rem)] max-w-md rounded-2xl bg-[#0B0D12] p-6 ring-1 ring-white/10 shadow-2xl">
-                                    <div className="flex w-full flex-col items-center text-center">
-                                        <h3 className="font-bold tracking-tight leading-tight">
-                                            <span className="block bg-gradient-to-b from-white/95 via-white/80 to-white/50 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] text-[clamp(1.4rem,4.2vw,2rem)]">
-                                                Apply for CAASP
-                                            </span>
-                                        </h3>
-                                        <p className="mt-1 text-sm text-white/70">Fill in your details to submit your application.</p>
-                                        <form
-                                            className="mt-5 w-full flex flex-col gap-3 text-left"
-                                            onSubmit={(e) => {
-                                                e.preventDefault();
-                                                (e.currentTarget as HTMLFormElement).reset();
-                                                state.close();
-                                                const thanks = document.getElementById("thanks-confetti");
-                                                if (thanks) thanks.click();
-                                            }}
-                                        >
-                                            <Input label="Full Name" name="name" placeholder="Jane Doe" />
-                                            <Input label="Email" name="email" type="email" placeholder="jane@company.com" />
-                                            <Input label="Phone" name="phone" placeholder="+1 404 555 0123" />
-                                            <Input label="City" name="city" placeholder="Perth" />
-                                            <div className="mt-4 flex items-center justify-end gap-2">
-                                                <ShineButton color="secondary" size="lg" onClick={() => state.close()}>
-                                                    Cancel
-                                                </ShineButton>
-                                                <ShineButton className="cursor-cta-trendy" color="secondary-destructive" size="lg" iconTrailing={ArrowRight} type="submit">
-                                                    Submit
-                                                </ShineButton>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </Dialog>
-                            </Modal>
-                        )}
-                    </ModalOverlay>
-                </DialogTrigger>
+                    <Button className="cursor-cta-trendy" color="link-gray" size="lg" href="#">
+                        Download Course Outline
+                    </Button>
+                    <DialogTrigger>
+                        <Button className="cursor-cta-trendy" color="link-gray" size="lg">
+                            Speak With an Advisor
+                        </Button>
+                        <ModalOverlay className="!items-center !justify-center">
+                            {({ state }) => (
+                                <Modal className="w-full flex items-center justify-center cursor-auto will-change-transform">
+                                    <Dialog className="w-[min(90vw,28rem)] max-w-md rounded-2xl bg-[#0B0D12] p-6 ring-1 ring-white/10 shadow-2xl">
+                                        <div className="flex w-full flex-col items-center text-center">
+                                            <h3 className="font-bold tracking-tight leading-tight">
+                                                <span className="block bg-gradient-to-b from-white/95 via-white/80 to-white/50 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] text-[clamp(1.4rem,4.2vw,2rem)]">
+                                                    Enquire About a Program
+                                                </span>
+                                            </h3>
+                                            <p className="mt-1 text-sm text-white/70">Share your background and what you want to achieve. We will recommend a suitable pathway.</p>
+                                            <form
+                                                className="mt-5 w-full flex flex-col gap-3 text-left"
+                                                onSubmit={(e) => {
+                                                    e.preventDefault();
+                                                    const fd = new FormData(e.currentTarget as HTMLFormElement);
+                                                    const name = String(fd.get("name") || "").trim();
+                                                    const email = String(fd.get("email") || "").trim();
+                                                    const message = String(fd.get("message") || "").trim();
+                                                    const invalid: Record<string, boolean> = {
+                                                        name: !name,
+                                                        email: !email,
+                                                        message: !message,
+                                                    };
+                                                    const hasInvalid = Object.values(invalid).some(Boolean);
+                                                    setEnquiryInvalid(invalid);
+                                                    if (hasInvalid) {
+                                                        setEnquiryError("Please review the highlighted fields and try again.");
+                                                        return;
+                                                    }
+                                                    setEnquiryError(null);
+                                                    (e.currentTarget as HTMLFormElement).reset();
+                                                    setEnquiryInvalid({});
+                                                    state.close();
+                                                    const thanks = document.getElementById("thanks-confetti");
+                                                    if (thanks) thanks.click();
+                                                }}
+                                            >
+                                                {enquiryError && <div className="rounded-md bg-[#2A0F12] p-3 text-sm text-white/85 ring-1 ring-white/10"> {enquiryError} </div>}
+                                                <Input label="Full Name" name="name" placeholder="Jane Doe" isInvalid={!!enquiryInvalid["name"]} />
+                                                <Input label="Email Address" name="email" type="email" placeholder="jane@company.com" isInvalid={!!enquiryInvalid["email"]} />
+                                                <Input label="Mobile Number (optional)" name="mobile" placeholder="+1 404 555 0123" />
+                                                <Input label="Current Background" name="background" placeholder="e.g., student, developer, QA, admin, IT operations" />
+                                                <Input label="Target Goal" name="goal" placeholder="e.g., AppSec, Cloud Security, Ethical Hacking, GRC, DFIR, SOC/IR, AI Security" />
+                                                <TextArea label="Message" name="message" placeholder="What are you aiming to achieve?" rows={4} isInvalid={!!enquiryInvalid["message"]} />
+                                                <p className="mt-1 text-xs text-white/60">By submitting this form, you consent to be contacted regarding your enquiry.</p>
+                                                <div className="mt-4 flex items-center justify-end gap-2">
+                                                    <ShineButton color="secondary" size="lg" onClick={() => state.close()}>
+                                                        Cancel
+                                                    </ShineButton>
+                                                    <ShineButton className="cursor-cta-trendy" color="secondary-destructive" size="lg" iconTrailing={ArrowRight} type="submit">
+                                                        Submit Enquiry
+                                                    </ShineButton>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </Dialog>
+                                </Modal>
+                            )}
+                        </ModalOverlay>
+                    </DialogTrigger>
+                </div>
             </div>
             <motion.div
                 className="fixed bottom-6 right-6 z-[60]"
@@ -172,7 +205,7 @@ export const CAASPHero = () => {
             >
                 <DialogTrigger>
                     <ShineButton className="cursor-cta-trendy" color="secondary-destructive" size="lg" iconTrailing={ArrowRight}>
-                        Apply Now
+                        Enquire Now
                     </ShineButton>
                     <ModalOverlay className="!items-center !justify-center">
                         {({ state }) => (
@@ -181,30 +214,51 @@ export const CAASPHero = () => {
                                     <div className="flex w-full flex-col items-center text-center">
                                         <h3 className="font-bold tracking-tight leading-tight">
                                             <span className="block bg-gradient-to-b from-white/95 via-white/80 to-white/50 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] text-[clamp(1.4rem,4.2vw,2rem)]">
-                                                Apply for CAASP
+                                                Enquire About a Program
                                             </span>
                                         </h3>
-                                        <p className="mt-1 text-sm text-white/70">Fill in your details to submit your application.</p>
+                                        <p className="mt-1 text-sm text-white/70">Share your background and what you want to achieve. We will recommend a suitable pathway.</p>
                                         <form
                                             className="mt-5 w-full flex flex-col gap-3 text-left"
                                             onSubmit={(e) => {
                                                 e.preventDefault();
+                                                const fd = new FormData(e.currentTarget as HTMLFormElement);
+                                                const name = String(fd.get("name") || "").trim();
+                                                const email = String(fd.get("email") || "").trim();
+                                                const message = String(fd.get("message") || "").trim();
+                                                const invalid: Record<string, boolean> = {
+                                                    name: !name,
+                                                    email: !email,
+                                                    message: !message,
+                                                };
+                                                const hasInvalid = Object.values(invalid).some(Boolean);
+                                                setEnquiryInvalid(invalid);
+                                                if (hasInvalid) {
+                                                    setEnquiryError("Please review the highlighted fields and try again.");
+                                                    return;
+                                                }
+                                                setEnquiryError(null);
                                                 (e.currentTarget as HTMLFormElement).reset();
+                                                setEnquiryInvalid({});
                                                 state.close();
                                                 const thanks = document.getElementById("thanks-confetti");
                                                 if (thanks) thanks.click();
                                             }}
                                         >
-                                            <Input label="Full Name" name="name" placeholder="Jane Doe" />
-                                            <Input label="Email" name="email" type="email" placeholder="jane@company.com" />
-                                            <Input label="Phone" name="phone" placeholder="+1 404 555 0123" />
-                                            <Input label="City" name="city" placeholder="Perth" />
+                                            {enquiryError && <div className="rounded-md bg-[#2A0F12] p-3 text-sm text-white/85 ring-1 ring-white/10"> {enquiryError} </div>}
+                                            <Input label="Full Name" name="name" placeholder="Jane Doe" isInvalid={!!enquiryInvalid["name"]} />
+                                            <Input label="Email Address" name="email" type="email" placeholder="jane@company.com" isInvalid={!!enquiryInvalid["email"]} />
+                                            <Input label="Mobile Number (optional)" name="mobile" placeholder="+1 404 555 0123" />
+                                            <Input label="Current Background" name="background" placeholder="e.g., student, developer, QA, admin, IT operations" />
+                                            <Input label="Target Goal" name="goal" placeholder="e.g., AppSec, Cloud Security, Ethical Hacking, GRC, DFIR, SOC/IR, AI Security" />
+                                            <TextArea label="Message" name="message" placeholder="What are you aiming to achieve?" rows={4} isInvalid={!!enquiryInvalid["message"]} />
+                                            <p className="mt-1 text-xs text-white/60">By submitting this form, you consent to be contacted regarding your enquiry.</p>
                                             <div className="mt-4 flex items-center justify-end gap-2">
                                                 <ShineButton color="secondary" size="lg" onClick={() => state.close()}>
                                                     Cancel
                                                 </ShineButton>
                                                 <ShineButton className="cursor-cta-trendy" color="secondary-destructive" size="lg" iconTrailing={ArrowRight} type="submit">
-                                                    Submit
+                                                    Submit Enquiry
                                                 </ShineButton>
                                             </div>
                                         </form>
@@ -227,10 +281,10 @@ export const CAASPHero = () => {
                                 <div className="relative z-10">
                                     <h3 className="font-bold tracking-tight leading-tight">
                                         <span className="block bg-gradient-to-b from-white/95 via-white/80 to-white/50 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] text-[clamp(1.3rem,4vw,1.9rem)]">
-                                            Thank you for applying!
+                                            Thank you.
                                         </span>
                                     </h3>
-                                    <p className="mt-1 text-sm text-white/75">We’ve received your application. Our advisors will reach out shortly.</p>
+                                    <p className="mt-1 text-sm text-white/75">Your enquiry has been received. We will review your details and contact you.</p>
                                     <div className="mt-5 flex justify-end">
                                         <ShineButton color="secondary-destructive" size="lg" onClick={() => state.close()}>
                                             Close

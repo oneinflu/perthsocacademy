@@ -1,8 +1,8 @@
-"use client";
+ "use client";
 import { motion } from "motion/react";
 import { BackgroundPattern } from "@/components/shared-assets/background-patterns";
 
-export const AcademyHero = () => {
+export const FreshGraduatesHero = () => {
     return (
         <section className="relative w-full bg-[#0A0D12] py-24 md:py-32">
             <div className="pointer-events-none absolute inset-0 z-0">
@@ -12,7 +12,7 @@ export const AcademyHero = () => {
                     muted
                     loop
                     playsInline
-                    src="/bg5.mp4"
+                    src="/bg4.mp4"
                 />
                 <BackgroundPattern
                     pattern="grid"
@@ -30,7 +30,7 @@ export const AcademyHero = () => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 4, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
                 />
-                <div className="absolute inset-0 z-21 bg-black/65" />
+                <div className="absolute inset-0 z-21 bg-black/60" />
                 <motion.div
                     className="absolute left-0 top-0 z-15 h-[55vh] w-[55vw] blur-3xl opacity-35"
                     style={{
@@ -55,16 +55,17 @@ export const AcademyHero = () => {
                 <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
                     <div className="inline-flex items-center rounded-full p-[1px] ring-1 ring-white/10">
                         <span className="flex items-center gap-2 rounded-full bg-[#0A0D12] px-3 py-1 text-md font-semibold text-white/90 ring-1 ring-white/10">
-                            ATLANTA SOC ACADEMY
+                            CYBERSECURITY PATHWAY
                         </span>
                     </div>
                     <h1 className="mt-6 font-bold tracking-tight leading-tight">
-                        <span className="block bg-gradient-to-b from-white/95 via-white/80 to-white/50 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] text-[clamp(2.4rem,7vw,5rem)]">
-                            Training for modern security operations and AI-driven systems
+                        <span className="block bg-gradient-to-b from-white/95 via-white/80 to-white/50 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] text-[clamp(2.2rem,6.5vw,4.8rem)]">
+                            Cybersecurity for Fresh Graduates
                         </span>
                     </h1>
                     <p className="mt-4 max-w-3xl text-lg text-white/80 md:text-xl">
-                        An advanced training institution focused on real-world SOC operations, agentic AI security, and governance.
+                        Build core cybersecurity foundations, gain SOC context, and choose a role-aligned track — designed for confident entry into
+                        modern security operations.
                     </p>
                 </div>
             </div>

@@ -9,6 +9,7 @@ import { ShineButton } from "@/components/base/buttons/shine-button";
 import { UntitledLogo } from "@/components/foundations/logo/untitledui-logo";
 import { UntitledLogoMinimal } from "@/components/foundations/logo/untitledui-logo-minimal";
 import { cx } from "@/utils/cx";
+import { usePathname } from "next/navigation";
 
 type HeaderNavItem = {
     label: string;
@@ -23,14 +24,7 @@ const headerNavItems: HeaderNavItem[] = [
     { label: "Threat Landscape", href: "/threat" },
 ];
 
-const footerNavItems = [
-   
-  
-    { label: "Support", href: "/pricing" },
-    { label: "Contact", href: "/pricing" },
-    { label: "Sitemap", href: "/pricing" },
-    { label: "Cookie settings", href: "/pricing" },
-];
+const footerNavItems: Array<{ label: string; href: string }> = [];
 
 const MobileNavItem = (props: { className?: string; label: string; href?: string; children?: ReactNode }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -65,17 +59,19 @@ const MobileNavItem = (props: { className?: string; label: string; href?: string
 const MobileFooter = () => {
     return (
         <div className="flex flex-col gap-8 border-t border-secondary px-4 py-6">
-            <div>
-                <ul className="grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-6 gap-y-3">
-                    {footerNavItems.map((navItem) => (
-                        <li key={navItem.label}>
-                            <Button color="link-gray" size="lg" href={navItem.href}>
-                                {navItem.label}
-                            </Button>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            {footerNavItems.length > 0 && (
+                <div>
+                    <ul className="grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-6 gap-y-3">
+                        {footerNavItems.map((navItem) => (
+                            <li key={navItem.label}>
+                                <Button color="link-gray" size="lg" href={navItem.href}>
+                                    {navItem.label}
+                                </Button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             <div className="flex flex-col gap-3">
                 <ShineButton className="cursor-cta-trendy" color="secondary" size="lg">
                     Student Login
@@ -94,6 +90,7 @@ interface HeaderProps {
 
 export const Header = ({ items = headerNavItems, isFullWidth, isFloating, className }: HeaderProps) => {
     const headerRef = useRef<HTMLElement>(null);
+    const pathname = usePathname();
 
     return (
         <header
@@ -130,53 +127,126 @@ export const Header = ({ items = headerNavItems, isFullWidth, isFloating, classN
 
                         {/* Desktop navigation */}
                         <nav className="max-md:hidden">
-                            <ul className="flex items-center gap-0.5">
+                            <ul className="flex items-center gap-4 md:gap-6">
                                 {items.map((navItem) => (
                                     <li key={navItem.label}>
                                         {navItem.menu ? (
-                                            <AriaDialogTrigger>
-                                                <AriaButton className="flex cursor-pointer items-center gap-0.5 rounded-lg px-1.5 py-1 text-md font-semibold text-secondary outline-focus-ring transition duration-100 ease-linear hover:text-secondary_hover focus-visible:outline-2 focus-visible:outline-offset-2">
-                                                    <span className="px-0.5">{navItem.label}</span>
-
-                                                    <ChevronDown className="size-4 rotate-0 stroke-[2.625px] text-fg-quaternary transition duration-100 ease-linear in-aria-expanded:-rotate-180" />
-                                                </AriaButton>
-
-                                                <AriaPopover
-                                                    className={({ isEntering, isExiting }) =>
-                                                        cx(
-                                                            "hidden origin-top will-change-transform md:block",
-                                                            isFullWidth && "w-full",
-                                                            isEntering && "duration-200 ease-out animate-in fade-in slide-in-from-top-1",
-                                                            isExiting && "duration-150 ease-in animate-out fade-out slide-out-to-top-1",
-                                                        )
-                                                    }
-                                                    offset={isFloating || isFullWidth ? 0 : 8}
-                                                    containerPadding={0}
-                                                    triggerRef={(isFloating && isFullWidth) || isFullWidth ? headerRef : undefined}
-                                                >
-                                                    {({ isEntering, isExiting }) => (
-                                                        <AriaDialog
-                                                            className={cx(
-                                                                "mx-auto origin-top outline-hidden",
-                                                                isFloating && "max-w-7xl px-8 pt-3",
-                                                                // Have to use the scale animation inside the popover to avoid
-                                                                // miscalculating the popover's position when opening.
-                                                                isEntering && !isFullWidth && "duration-200 ease-out animate-in zoom-in-95",
-                                                                isExiting && !isFullWidth && "duration-150 ease-in animate-out zoom-out-95",
-                                                            )}
+                                            navItem.label === "Courses" ? (
+                                                <AriaDialogTrigger>
+                                                    <AriaButton
+                                                        className={({ isFocusVisible }) => {
+                                                            const isActive = pathname?.startsWith("/programs/ai-cyber-security-training-program");
+                                                            return cx(
+                                                                "group flex cursor-pointer items-center gap-0.5 rounded px-2 py-1 text-md font-semibold outline-focus-ring transition duration-100 ease-linear",
+                                                                isActive ? "text-primary" : "text-secondary hover:text-secondary_hover",
+                                                                isFocusVisible && "outline-2 outline-offset-2 outline-focus-ring",
+                                                            );
+                                                        }}
+                                                    >
+                                                        <span className="px-0.5 underline decoration-transparent underline-offset-2 group-hover:decoration-current">
+                                                            {navItem.label}
+                                                        </span>
+                                                        <ChevronDown className="size-4 rotate-0 stroke-[2.625px] text-fg-quaternary transition duration-100 ease-linear in-aria-expanded:-rotate-180" />
+                                                    </AriaButton>
+                                                    <AriaPopover
+                                                        className={({ isEntering, isExiting }) =>
+                                                            cx(
+                                                                "hidden origin-top will-change-transform md:block",
+                                                                isFullWidth && "w-full",
+                                                                isEntering && "duration-200 ease-out animate-in fade-in slide-in-from-top-1",
+                                                                isExiting && "duration-150 ease-in animate-out fade-out slide-out-to-top-1",
+                                                            )
+                                                        }
+                                                        offset={isFloating || isFullWidth ? 0 : 8}
+                                                        containerPadding={0}
+                                                        triggerRef={(isFloating && isFullWidth) || isFullWidth ? headerRef : undefined}
+                                                    >
+                                                        {({ isEntering, isExiting }) => (
+                                                            <AriaDialog
+                                                                className={cx(
+                                                                    "mx-auto origin-top outline-hidden",
+                                                                    isFloating && "max-w-7xl px-8 pt-3",
+                                                                    isEntering && !isFullWidth && "duration-200 ease-out animate-in zoom-in-95",
+                                                                    isExiting && !isFullWidth && "duration-150 ease-in animate-out zoom-out-95",
+                                                                )}
+                                                            >
+                                                                {navItem.menu}
+                                                            </AriaDialog>
+                                                        )}
+                                                    </AriaPopover>
+                                                </AriaDialogTrigger>
+                                            ) : (
+                                                <div className="flex items-center gap-2">
+                                                    {(() => {
+                                                        const isCourses = pathname?.startsWith("/programs/ai-cyber-security-training-program");
+                                                        const isPrograms = pathname?.startsWith("/programs") && !isCourses;
+                                                        const isActive = isPrograms && (navItem.href ?? "/").startsWith("/programs");
+                                                        return (
+                                                            <a
+                                                                href={navItem.href ?? "/"}
+                                                                className={cx(
+                                                                    "flex cursor-pointer items-center gap-0.5 rounded-lg px-2 py-1 text-md font-semibold outline-focus-ring transition duration-100 ease-linear",
+                                                                    isActive ? "text-primary" : "text-secondary hover:text-secondary_hover",
+                                                                )}
+                                                            >
+                                                                <span className="px-0.5 underline decoration-transparent underline-offset-2 hover:decoration-current">
+                                                                    {navItem.label}
+                                                                </span>
+                                                            </a>
+                                                        );
+                                                    })()}
+                                                    <AriaDialogTrigger>
+                                                        <AriaButton className="flex cursor-pointer items-center rounded-lg px-1.5 py-1 outline-focus-ring focus-visible:outline-2 focus-visible:outline-offset-2">
+                                                            <ChevronDown className="size-4 rotate-0 stroke-[2.625px] text-fg-quaternary transition duration-100 ease-linear in-aria-expanded:-rotate-180" />
+                                                        </AriaButton>
+                                                        <AriaPopover
+                                                            className={({ isEntering, isExiting }) =>
+                                                                cx(
+                                                                    "hidden origin-top will-change-transform md:block",
+                                                                    isFullWidth && "w-full",
+                                                                    isEntering && "duration-200 ease-out animate-in fade-in slide-in-from-top-1",
+                                                                    isExiting && "duration-150 ease-in animate-out fade-out slide-out-to-top-1",
+                                                                )
+                                                            }
+                                                            offset={isFloating || isFullWidth ? 0 : 8}
+                                                            containerPadding={0}
+                                                            triggerRef={(isFloating && isFullWidth) || isFullWidth ? headerRef : undefined}
                                                         >
-                                                            {navItem.menu}
-                                                        </AriaDialog>
-                                                    )}
-                                                </AriaPopover>
-                                            </AriaDialogTrigger>
+                                                            {({ isEntering, isExiting }) => (
+                                                                <AriaDialog
+                                                                    className={cx(
+                                                                        "mx-auto origin-top outline-hidden",
+                                                                        isFloating && "max-w-7xl px-8 pt-3",
+                                                                        isEntering && !isFullWidth && "duration-200 ease-out animate-in zoom-in-95",
+                                                                        isExiting && !isFullWidth && "duration-150 ease-in animate-out zoom-out-95",
+                                                                    )}
+                                                                >
+                                                                    {navItem.menu}
+                                                                </AriaDialog>
+                                                            )}
+                                                        </AriaPopover>
+                                                    </AriaDialogTrigger>
+                                                </div>
+                                            )
                                         ) : (
-                                            <a
-                                                href={navItem.href}
-                                                className="flex cursor-pointer items-center gap-0.5 rounded-lg px-1.5 py-1 text-md font-semibold text-secondary outline-focus-ring transition duration-100 ease-linear hover:text-secondary_hover focus:outline-offset-2 focus-visible:outline-2"
-                                            >
-                                                <span className="px-0.5">{navItem.label}</span>
-                                            </a>
+                                            (() => {
+                                                const href = navItem.href ?? "/";
+                                                const isHome = href === "/";
+                                                const isActive = isHome ? pathname === "/" : Boolean(pathname?.startsWith(href));
+                                                return (
+                                                    <a
+                                                        href={href}
+                                                        className={cx(
+                                                            "flex cursor-pointer items-center gap-0.5 rounded-lg px-2 py-1 text-md font-semibold outline-focus-ring transition duration-100 ease-linear",
+                                                            isActive ? "text-primary" : "text-secondary hover:text-secondary_hover",
+                                                        )}
+                                                    >
+                                                        <span className="px-0.5 underline decoration-transparent underline-offset-2 hover:decoration-current">
+                                                            {navItem.label}
+                                                        </span>
+                                                    </a>
+                                                );
+                                            })()
                                         )}
                                     </li>
                                 ))}

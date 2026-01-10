@@ -24,13 +24,13 @@ const AlternateImageMockup: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
 
 export const HomeFeatures = () => {
     return (
-        <section className="flex flex-col gap-12 overflow-hidden  py-16 sm:gap-16 md:gap-20 md:py-24 lg:gap-24">
+        <section className="flex flex-col gap-12 overflow-hidden  bg-primary py-16 sm:gap-16 md:gap-20 md:py-24 lg:gap-24">
             <div className="mx-auto w-full max-w-container px-4 md:px-8">
                 <div className="mx-auto flex w-full max-w-3xl flex-col items-center text-center">
-                    <span className="text-sm font-semibold text-brand-secondary md:text-md">Features</span>
-                    <h2 className="mt-3 text-display-sm font-semibold text-primary md:text-display-md">Built for modern security operations</h2>
+                    <span className="text-sm font-semibold text-brand-secondary md:text-md">Programs For Individuals</span>
+                    <h2 className="mt-3 text-display-sm font-semibold text-primary md:text-display-md">Three ways to start and grow in cybersecurity</h2>
                     <p className="mt-4 text-lg text-tertiary md:mt-5 md:text-xl">
-                       SOC Academy prepares learners for real-world security operations by focusing on systems, processes, and human decision-making — not theory alone.
+                        Choose a starting point that fits you: build foundation, pivot your career without restarting, or follow a role-specialisation track with measurable outcomes.
                     </p>
                 </div>
             </div>
@@ -39,15 +39,14 @@ export const HomeFeatures = () => {
                 <div className="grid grid-cols-1 gap-10 md:gap-20 lg:grid-cols-2 lg:gap-24">
                     <div className="max-w-xl flex-1 self-center">
                         <FeaturedIcon icon={MessageChatCircle} size="lg" color="brand" theme="light" />
-                        <h2 className="mt-5 text-display-xs font-semibold text-primary md:text-display-sm">What a Security Operations Center Does</h2>
-                        <p className="mt-2 text-md text-tertiary md:mt-4 md:text-lg">
-                          A SOC continuously monitors systems, analyzes security signals, and responds to threats before they cause damage.
-                        </p>
+                        <h2 className="mt-5 text-display-xs font-semibold text-primary md:text-display-sm">Fresh Graduate Cybersecurity Launchpad</h2>
+                        <p className="mt-2 text-md text-tertiary md:mt-4 md:text-lg">Purpose: Build foundation, confidence, and direction.</p>
                         <ul className="mt-8 flex flex-col gap-4 pl-2 md:gap-5 md:pl-4">
                             {[
-                                "Continuous monitoring of security events",
-                                "Investigation of suspicious activity",
-                                "Coordinated incident response",
+                                "Core security principles and terminology",
+                                "OS and networking essentials for security work",
+                                "Intro to application, cloud, and operational security",
+                                "Guided mini-projects to build proof of learning",
                             ].map((feat) => (
                                 <li key={feat} className="flex items-center gap-3">
                                     <TagCheckbox size="lg" isSelected />
@@ -75,15 +74,15 @@ export const HomeFeatures = () => {
                 <div className="grid grid-cols-1 gap-10 md:gap-20 lg:grid-cols-2 lg:gap-24">
                     <div className="max-w-xl flex-1 self-center lg:order-last">
                         <FeaturedIcon icon={ZapFast} size="lg" color="brand" theme="light" />
-                          <h2 className="mt-5 text-display-xs font-semibold text-primary md:text-display-sm">How SOC Teams Operate Daily</h2>
-                        <p className="mt-2 text-md text-tertiary md:mt-4 md:text-lg">
-                            Security operations are ongoing processes, not one-time actions.
-                        </p>
+                          <h2 className="mt-5 text-display-xs font-semibold text-primary md:text-display-sm">Career Switcher Accelerator</h2>
+                        <p className="mt-2 text-md text-tertiary md:mt-4 md:text-lg">Purpose: Transition into security without restarting your career.</p>
                         <ul className="mt-8 flex flex-col gap-4 pl-2 md:gap-5 md:pl-4">
                             {[
-                                "Alerts reviewed and validated",
-                                "Incidents escalated and resolved",
-                                "Findings documented and reported",
+                                "Developer → Application Security / Secure Coding",
+                                "Tester / QA → Security Testing / Vulnerability Validation",
+                                "Sysadmin / IT Ops → Hardening / Identity & Access / Readiness",
+                                "Network Admin → Network & Cloud Network Security",
+                                "DevOps → DevSecOps Foundations / Cloud Security",
                             ].map((feat) => (
                                 <li key={feat} className="flex items-center gap-3">
                                     <TagCheckbox size="lg" isSelected />
@@ -112,15 +111,13 @@ export const HomeFeatures = () => {
                     <div className="max-w-xl flex-1 self-center">
                         <FeaturedIcon icon={ChartBreakoutSquare} size="lg" color="brand" theme="light" />
 
-<h2 className="mt-5 text-display-xs font-semibold text-primary md:text-display-sm">Where SOC analysts fit into the system</h2>
-                        <p className="mt-2 text-md text-tertiary md:mt-4 md:text-lg">
-                           SOC analysts are the human decision-makers between automated alerts and real-world response.
-                        </p>
+<h2 className="mt-5 text-display-xs font-semibold text-primary md:text-display-sm">Role-Based Specialisation Bootcamps</h2>
+                        <p className="mt-2 text-md text-tertiary md:mt-4 md:text-lg">Choose a target role and follow a structured sequence.</p>
                         <ul className="mt-8 flex flex-col gap-4 pl-2 md:gap-5 md:pl-4">
                             {[
-                                "Validate signals from tools",
-                                "Make investigation decisions",
-                                "Coordinate response actions",
+                                "Structured modules, labs, and assessments",
+                                "Outcome-focused learning with measurable capability",
+                                "Alignment to real security responsibilities",
                             ].map((feat) => (
                                 <li key={feat} className="flex items-center gap-3">
                                     <TagCheckbox size="lg" isSelected />
