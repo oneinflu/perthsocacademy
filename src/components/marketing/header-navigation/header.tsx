@@ -6,8 +6,6 @@ import { ChevronDown } from "@untitledui/icons";
 import { Button as AriaButton, Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
 import { ShineButton } from "@/components/base/buttons/shine-button";
-import { UntitledLogo } from "@/components/foundations/logo/untitledui-logo";
-import { UntitledLogoMinimal } from "@/components/foundations/logo/untitledui-logo-minimal";
 import { cx } from "@/utils/cx";
 import { usePathname } from "next/navigation";
 
@@ -115,14 +113,14 @@ export const Header = ({ items = headerNavItems, isFullWidth, isFloating, classN
                             href="/"
                             className="rounded-xs outline-focus-ring focus-visible:outline-2 focus-visible:outline-offset-2 md:max-lg:hidden"
                         >
-                            <UntitledLogo className="h-8" />
+                            <img src="/logo.svg" alt="PerthSOC" className="h-16 w-auto" />
                         </a>
                         <a
                             aria-label="Go to homepage"
                             href="/"
                             className="hidden rounded-xs outline-focus-ring focus-visible:outline-2 focus-visible:outline-offset-2 md:inline-block lg:hidden"
                         >
-                            <UntitledLogoMinimal className="h-8" />
+                            <img src="/logo.svg" alt="PerthSOC" className="h-16 w-auto" />
                         </a>
 
                         {/* Desktop navigation */}

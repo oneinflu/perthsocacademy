@@ -1,7 +1,6 @@
 "use client";
 
 import type { FC } from "react";
-import { UntitledLogo } from "@/components/foundations/logo/untitledui-logo";
 import { Button } from "@/components/base/buttons/button";
 import { cx } from "@/utils/cx";
 
@@ -19,7 +18,7 @@ export const Footer: FC<{ className?: string }> = ({ className }) => {
         >
             <div className="mx-auto flex w-full max-w-container items-center justify-between gap-6 px-4 md:px-8">
                 <div className="flex items-center gap-3">
-                    <UntitledLogo className="h-8" />
+                    <img src="/logo.svg" alt="PerthSOC" className="h-16 w-auto" />
                 </div>
 
                 {items.length > 0 && (
