@@ -5,7 +5,8 @@ import { Button } from "@/components/base/buttons/button";
 
 export const metadata: Metadata = {
     title: "Cybersecurity Course Library | PerthSOC Academy",
-    description: "Browse structured, capability-focused courses across key cybersecurity domains.",
+    description:
+        "Explore cybersecurity courses across fundamentals, AppSec, ethical hacking, cloud security, GRC, DFIR, incident response, threat intelligence, and AI application security.",
 };
 
 const categories = [

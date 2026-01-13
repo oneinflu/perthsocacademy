@@ -9,6 +9,7 @@ import { cx } from "@/utils/cx";
 type CourseContent = {
     title: string;
     subtitle?: string;
+    seoDescription?: string;
     overview: string[];
     capabilities: string[];
     outcomes: string[];
@@ -35,6 +36,8 @@ const COURSES: Record<string, CourseContent> = {
     "cybersecurity-fundamentals": {
         title: "Cybersecurity Fundamentals",
         subtitle: "Foundations for modern security roles",
+        seoDescription:
+            "Explore core security concepts across identity, networks, operating systems, applications, and cloud to build baseline security fluency.",
         overview: [
             "Core concepts across identity, networks, operating systems, applications, and cloud.",
             "Context-first approach to build practical understanding quickly.",
@@ -62,6 +65,8 @@ const COURSES: Record<string, CourseContent> = {
     "application-security": {
         title: "Web & Mobile Application Security",
         subtitle: "Secure modern applications across the lifecycle",
+        seoDescription:
+            "Learn secure coding and validation for web/mobile apps—threat modeling, common vulnerabilities, remediation and testing workflows.",
         overview: [
             "Vulnerability patterns and secure coding fundamentals.",
             "Validation workflows and remediation communication for engineering teams.",
@@ -76,6 +81,8 @@ const COURSES: Record<string, CourseContent> = {
     "offensive-security": {
         title: "Ethical Hacking (Foundations)",
         subtitle: "Disciplined offensive testing",
+        seoDescription:
+            "Practice disciplined ethical hacking—recon, validation of common weaknesses, evidence collection, and responsible reporting.",
         overview: ["Scope discipline and methodology.", "Evidence collection and responsible reporting."],
         capabilities: ["Recon and enumeration", "Validation of common weaknesses", "Reporting clarity"],
         outcomes: ["Identify realistic issues", "Document credible evidence", "Recommend actionable remediation"],
@@ -87,6 +94,8 @@ const COURSES: Record<string, CourseContent> = {
     "defensive-response": {
         title: "SOC Analyst & Incident Response Essentials",
         subtitle: "Detection, triage, and response fundamentals",
+        seoDescription:
+            "Build SOC analyst and incident response skills—alert triage, investigation workflows, containment thinking, and incident communication.",
         overview: ["Investigation thinking and structured response.", "Operational documentation discipline."],
         capabilities: ["Alert triage", "Investigation flow", "Incident communication"],
         outcomes: ["Respond with structure", "Reduce noise, improve signal", "Document incidents credibly"],
@@ -98,6 +107,8 @@ const COURSES: Record<string, CourseContent> = {
     "cloud-platform": {
         title: "Cloud Security (Foundations)",
         subtitle: "Principles for secure cloud environments",
+        seoDescription:
+            "Establish secure cloud foundations—IAM, configuration hygiene, exposure reduction, logging, and monitoring baselines.",
         overview: ["Access control thinking and exposure reduction.", "Essential monitoring and configuration practices."],
         capabilities: ["Cloud IAM basics", "Configuration security", "Logging and monitoring"],
         outcomes: ["Reduce cloud exposure", "Improve configuration hygiene", "Establish baseline controls"],
@@ -109,6 +120,8 @@ const COURSES: Record<string, CourseContent> = {
     "grc-risk": {
         title: "GRC / Risk & Compliance (Foundations)",
         subtitle: "Governance, risk, and control fundamentals",
+        seoDescription:
+            "Understand governance, risk, and compliance—risk framing, control mapping, policy fundamentals, and compliance alignment.",
         overview: ["Risk language and control thinking.", "Policy and compliance alignment."],
         capabilities: ["Risk assessment basics", "Control mapping", "Policy fundamentals"],
         outcomes: ["Align security with business and regulation", "Communicate controls clearly", "Support governance outcomes"],
@@ -120,6 +133,8 @@ const COURSES: Record<string, CourseContent> = {
     "dfir-threat-intelligence": {
         title: "DFIR & Threat Intelligence (Foundations)",
         subtitle: "Investigation and adversary analysis basics",
+        seoDescription:
+            "Develop DFIR and threat intel skills—evidence handling, timeline analysis, adversary context, and reporting clarity.",
         overview: ["Evidence handling and response coordination.", "Adversary and campaign analysis."],
         capabilities: ["Forensics mindset", "Incident coordination", "Threat analysis lifecycle"],
         outcomes: ["Coordinate credible investigations", "Analyze adversary context", "Inform defense decisions"],
@@ -131,6 +146,8 @@ const COURSES: Record<string, CourseContent> = {
     "ai-security": {
         title: "AI / Agentic AI Application Security",
         subtitle: "Secure AI features and workflows",
+        seoDescription:
+            "Secure AI applications and agentic workflows—misuse scenarios, guardrails, control design, data exposure and monitoring requirements.",
         overview: ["Misuse scenarios and control requirements.", "Security-by-design for AI actions and tools."],
         capabilities: ["AI threat modeling", "Control design", "Monitoring requirements"],
         outcomes: ["Reduce AI misuse risk", "Design safer AI workflows", "Monitor AI systems credibly"],
@@ -153,7 +170,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
     return {
         title: `${course.title} | PerthSOC Academy`,
-        description: course.subtitle ?? course.overview[0],
+        description: course.seoDescription ?? course.subtitle ?? course.overview[0],
     };
 }
 
