@@ -122,6 +122,9 @@ export const HomeHero = () => {
                         <Button href="/programs/role-tracks" color="link-gray" className="rounded-full text-white/90 hover:text-white cursor-cta-trendy" size="lg">
                             Find My Best-Fit Path
                         </Button>
+                        <Button href="/programs/corporate-training" color="link-gray" className="rounded-full text-white/90 hover:text-white cursor-cta-trendy" size="lg">
+                            Request Corporate Training
+                        </Button>
                         
                     </motion.div>
                 </div>
