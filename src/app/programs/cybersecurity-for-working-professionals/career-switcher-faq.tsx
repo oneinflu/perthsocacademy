@@ -57,7 +57,7 @@ export default function CareerSwitcherFAQ() {
                             return (
                                 <li key={item.q} className="p-5 md:p-6">
                                     <button onClick={() => setOpen(isOpen ? null : i)} className="flex w-full items-start justify-between gap-6">
-                                        <span className="text-md font-semibold text-white">{item.q}</span>
+                                        <span className="text-left text-md font-semibold text-white">{item.q}</span>
                                         <span
                                             className={cx(
                                                 "inline-flex h-6 w-6 items-center justify-center rounded-full ring-1 transition",

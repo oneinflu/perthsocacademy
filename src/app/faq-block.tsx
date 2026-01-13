@@ -53,14 +53,14 @@ export const FAQBlock = () => {
                                         <button
                                             type="button"
                                             onClick={() => setOpen(isOpen ? null : i)}
-                                            className="flex w-full items-start justify-between gap-6"
-                                        >
-                                            <span className="text-md font-semibold text-white">{item.q}</span>
-                                            <span
-                                                className={cx(
-                                                    "inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full ring-1 transition",
-                                                    isOpen ? "ring-white/20 bg-white/10 text-white" : "ring-white/15 bg-white/5 text-white/80",
-                                                )}
+                                        className="flex w-full items-start justify-between gap-6"
+                                    >
+                                        <span className="text-left text-md font-semibold text-white">{item.q}</span>
+                                        <span
+                                            className={cx(
+                                                "inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full ring-1 transition",
+                                                isOpen ? "ring-white/20 bg-white/10 text-white" : "ring-white/15 bg-white/5 text-white/80",
+                                            )}
                                             >
                                                 {isOpen ? "−" : "+"}
                                             </span>
