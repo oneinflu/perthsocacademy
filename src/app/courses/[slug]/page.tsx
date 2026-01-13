@@ -37,7 +37,7 @@ const COURSES: Record<string, CourseContent> = {
         title: "Cybersecurity Fundamentals",
         subtitle: "Foundations for modern security roles",
         seoDescription:
-            "Explore core security concepts across identity, networks, operating systems, applications, and cloud to build baseline security fluency.",
+            "Explore cybersecurity courses across fundamentals, AppSec, ethical hacking, cloud security, GRC, DFIR, incident response, threat intelligence, and AI application security.",
         overview: [
             "Core concepts across identity, networks, operating systems, applications, and cloud.",
             "Context-first approach to build practical understanding quickly.",
