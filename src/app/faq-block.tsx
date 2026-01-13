@@ -10,20 +10,16 @@ type FAQ = {
 
 const faqs: FAQ[] = [
     {
-        q: "Which program is best for fresh graduates?",
-        a: "Start with Cybersecurity Fundamentals, then choose a role-based track based on your strengths and preferred domain.",
+        q: "Can I start cybersecurity with no prior experience?",
+        a: "Yes. Begin with fundamentals, then choose a role-based specialization aligned to your interests and strengths.",
     },
     {
-        q: "I’m a developer/tester/admin—do I need to start from zero?",
-        a: "No. Transition pathways are designed to build on your existing technical experience and map it into security outcomes.",
+        q: "I’m a developer/tester/admin—what is the best transition path?",
+        a: "Developers typically move fastest into application security. Testers often transition into security testing and vulnerability validation. Admin and network professionals frequently move into cloud and platform security pathways.",
     },
     {
-        q: "Do you provide training for corporate technical teams?",
-        a: "Yes. Corporate programs are structured by role and domain focus to support capability uplift across teams.",
-    },
-    {
-        q: "Do you cover areas beyond SOC?",
-        a: "Yes. Programs cover application security, cloud security, ethical hacking, incident response, DFIR, GRC, and AI/agentic AI application security.",
+        q: "Do you offer corporate cybersecurity upskilling?",
+        a: "Yes. PerthSOC Academy provides role-aligned programs for engineering, cloud/platform, IT operations, and technical teams.",
     },
 ];
 
@@ -80,4 +76,3 @@ export const FAQBlock = () => {
         </section>
     );
 };
-
